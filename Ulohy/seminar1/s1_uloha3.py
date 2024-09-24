@@ -1,14 +1,14 @@
 # Výpis prvních how_many mocnin čísla base
 
 def PoweredNumbers():
-    base = input("Base number:")
-    power = input("Number of powered numbers:")
+    base = input("Base number: ")
+    power = input("Number of powered numbers: ")
     while base.isnumeric() == False or power.isnumeric() == False:
         if base.isnumeric() == False:
-            base = input("Base number:")
+            base = input("Base number: ")
             print("Write a number!")
         elif power.isnumeric() == False:
-            power = input("Number of powered numbers:")
+            power = input("Number of powered numbers: ")
             print("Write a number!")
     base = int(base)
     power = int(power)

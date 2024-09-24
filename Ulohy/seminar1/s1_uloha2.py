@@ -1,9 +1,9 @@
 # Výpis všech sudých n přirozených čísel menších než daná hranice upper_bound
 
 def NaturalSudeNumbers():
-    upper_bound = input("Upper bound number:")
+    upper_bound = input("Upper bound number: ")
     while upper_bound.isnumeric() == False:
-        upper_bound = input("Upper bound number:")
+        upper_bound = input("Upper bound number: ")
         print("Write a number!")
     upper_bound = int(upper_bound)
 

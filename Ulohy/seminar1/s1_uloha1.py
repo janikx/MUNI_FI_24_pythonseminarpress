@@ -1,9 +1,9 @@
 # Výpis prvních how_many přirozených čísel
 
 def NaturalNumbers():
-    n = input("Natural number:")
+    n = input("Natural number: ")
     while n.isnumeric() == False:
-        n = input("Natural number:")
+        n = input("Natural number: ")
         print("Write a natural number!")
     n = int(n)
 
