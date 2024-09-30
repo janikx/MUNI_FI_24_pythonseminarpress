@@ -1,0 +1,1 @@
+# Nalezení maxima v seznamu čísel (bez použití funkce max())
