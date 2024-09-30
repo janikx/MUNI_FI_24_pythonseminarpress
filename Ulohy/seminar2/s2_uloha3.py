@@ -1,0 +1,1 @@
+# Otočení řetězce pozpátku (bez použití metody sort() nebo funkce reversed())
