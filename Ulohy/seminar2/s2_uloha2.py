@@ -1,17 +1,14 @@
-# Nalezení maxima v seznamu čísel (bez použití funkce max())
+# Lineární vyhledávaní hodnoty v seznamu (Pomůcka - wiki)
+# https://en.wikipedia.org/wiki/Linear_search
 
-def maxNumber(n_numbers: list) -> int:
-    max_num = n_numbers[0]
-    for i in range(1, len(n_numbers)):
-        if n_numbers[i] > max_num:
-            max_num = n_numbers[i]
-    return max_num
+def numberSearch(n: list) -> int:
+    for i in range(len(numbers)):
+        if n == numbers[i]:
+            print(f"Number {n} was found on position {i} in numbers (list).")
+            pass
 
-num_of_nums = int(input("> How many numbers do you want to add?: "))
+searched_number = int(input("> Which number do you want to find?: "))
 numbers = []
-for i in range(0, num_of_nums):
-    item_num = int(input("> Number: "))
-    numbers.append(item_num)
-
-print(numbers)
-print(f"Maximum number in this list is: {maxNumber(numbers)}")
+for i in range(0, 1000):
+    numbers.append(i)
+numberSearch(searched_number)
