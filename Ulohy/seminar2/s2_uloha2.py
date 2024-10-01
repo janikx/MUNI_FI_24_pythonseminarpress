@@ -1,19 +1,22 @@
 # Lineární vyhledávaní hodnoty v seznamu (Pomůcka - wiki)
 # https://en.wikipedia.org/wiki/Linear_search
 
-def numberSearch(n: list) -> int:
-    for i in range(len(numbers)):
-        if n == numbers[i]:
-            print(f"Number {n} was found on position {i} in numbers (list).")
+def numberSearch(searched_value) -> int:
+    try:
+        searched_value = int(searched_value)
+    except ValueError:
+        try:
+            searched_value = float(searched_value)
+        except ValueError:
             pass
 
-searched_number = int(input("> Which number do you want to find?: "))
-numbers = []
-for i in range(0, 1000):
-    numbers.append(i)
-<<<<<<< HEAD
-    
-=======
+    for i in range(len(listitems)):
+        if searched_value == listitems[i]:
+            print(f"Conformity was found on position {i} in listitems (value: {searched_value}).")
+            pass
+    if searched_value not in listitems:
+        print(f"No conformity was found.")
 
->>>>>>> 9d714743fdef27a19ea32a183ab2ce6b9fe0426b
-numberSearch(searched_number)
+searched_value = input("> Which value do you want to find?: ")
+listitems = ["oko", 59, -999, "avocado", "Kinich", 1.8]
+numberSearch(searched_value)
