@@ -5,13 +5,11 @@ def numberSearch(n: list) -> int:
     for i in range(len(numbers)):
         if n == numbers[i]:
             print(f"Number {n} was found on position {i} in numbers (list).")
-            continue
+            pass
 
 searched_number = int(input("> Which number do you want to find?: "))
 numbers = []
 for i in range(0, 1000):
-    item_num = int(input("> Number: "))
-    numbers.append(item_num)
+    numbers.append(i)
 
-print(numbers)
-print(numberSearch(searched_number))
+numberSearch(searched_number)
