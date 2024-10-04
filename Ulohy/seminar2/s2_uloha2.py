@@ -18,5 +18,5 @@ def numberSearch(searched_value) -> int:
         print(f"No conformity was found.")
 
 searched_value = input("> Which value do you want to find?: ")
-listitems = ["oko", 59, -999, "avocado", "Kinich", 1.8]
+listitems = ["oko", 59, -999, "avocado", "Kinich", 1.8, "Janik", "Python", "Genshin Impact", "GYMLET"]
 numberSearch(searched_value)
