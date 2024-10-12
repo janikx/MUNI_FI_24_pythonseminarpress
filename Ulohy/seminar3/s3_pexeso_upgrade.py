@@ -1,5 +1,7 @@
 import random
 from sys import exit
+import os
+
 
 NAVYBLUE = "Blue"
 WHITE = "White"
@@ -12,7 +14,7 @@ PURPLE = "Purple"
 CYAN = "Cyan"
 
 ALLCOLORS = (RED, GREEN, BLUE, YELLOW, ORANGE, PURPLE, CYAN)
-ALLSHAPES = ('donut', 'square', 'diamond', 'lines', 'oval', 'knife', 'paw', 'triangle', 'house', 'book', 'arrow')
+ALLSHAPES = ('Donut', 'Square', 'Diamond', 'Oval', 'Knife', 'Heart', 'House', 'Book', 'Arrow')
 
 
 class Picture:
@@ -71,12 +73,22 @@ class Board:
     def __str__(self):
         board_state = ""
         print()
+
+        r = 0
+        c = 0
         for row in self.board:
             for card in row:
                 if card.face_up:
-                    board_state += str(card) + " | "
+                    board_state += str(card) + "| "
                 else:
-                    board_state += "XXXXX XXXXX | "
+                    if c == 0:
+                        board_state += f"| ____{r}_{c}____| "
+                        c += 1
+                    else:
+                        board_state += f"____{r}_{c}____| "
+                        c += 1
+            r += 1
+            c = 0
             board_state += "\n"
         return board_state
 
@@ -84,7 +96,7 @@ class Board:
 def main():
     game_board = Board()
     game_board.prepare_board()
-    print("Game start!")
+    print("\n>>> Game start! <<<\n")
     while True:
         game_board.check_game()
         if game_board.game_ended:
@@ -92,64 +104,79 @@ def main():
         first_card = card_pick(game_board, 'first')
         second_card = card_pick(game_board, 'second')
         if first_card == second_card:
-            print("It is a match!")
+            print("OO -> It is a match!")
             game_board.pairs_found += 1
-            print(f"You found {game_board.pairs_found} out of {game_board.number_of_pairs}")
+            print(f"You found {game_board.pairs_found} out of {game_board.number_of_pairs}.\n")
+            game_board.board[firstrow][firstcol].face_up = True
         else:
-            print("Oh no. You missed!")
+            print(f"XX -> Oh no. You missed!\n")
             first_card.face_up = False
             second_card.face_up = False
 
+
 def new_game(game_board):
-    response = input("Want to play another one? ('y' = yes, 'n' = no): ")
+    response = input(">>> Want to play another one? ('y' = yes, 'n' = no): ")
     response.strip()
     if response == "y":
         game_board.prepare_board()
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print(">-> THE BOARD <-<\n", game_board)
         return
     elif response == "n":
         end_game()
     else:
-        print("I don't understand that. Please try again.")
+        print("\n!! I don't understand that. Please try again.\n")
         new_game(game_board)
 
-
+firstrow = ""
+firstcol = ""
 def card_pick(game_board, order):
-    pick = input(f"Pick your {order} card. (format is 'row column', enter 'end' to end the game, enter 'board' to see current board view): ")
+    pick = input(f"Pick your {order} card. (format is 'row column', enter 'end' to end the game): ")
     pick = pick.strip()
     if pick == 'end':
         end_game()
-    if pick == 'board':
-        print(game_board)
-        return card_pick(game_board, order)
     row, column = check_input(game_board, pick)
     if row is None:
         return card_pick(game_board, order)
-    print(f"Picture is {game_board.board[row][column]} (coordinates: {row} - {column}).")
-    game_board.board[row][column].face_up = True
-    return game_board.board[row][column]
+    if order == "first":
+        global firstrow, firstcol
+        firstrow = row
+        firstcol = column
+        print(f"> First picture is {game_board.board[firstrow][firstcol]} (coordinates: {firstrow} - {firstcol}).\n")
+        game_board.board[firstrow][firstcol].face_up = True
+        return game_board.board[firstrow][firstcol]
+    if order == "second":
+        os.system('cls' if os.name == 'nt' else 'clear')
+        game_board.board[row][column].face_up = True
+        print(">-> THE BOARD <-<\n", game_board)
+        print(f"> First picture is {game_board.board[firstrow][firstcol]} (coordinates: {firstrow} - {firstcol}).")
+        print(f"> Second picture is {game_board.board[row][column]} (coordinates: {row} - {column}).")
+        game_board.board[firstrow][firstcol].face_up = False
+        return game_board.board[row][column]
 
 
 def check_input(game_board, pick):
     pick = pick.split()
     if len(pick) != 2 or not pick[0].isnumeric() or not pick[1].isnumeric():
-        print("Sorry, I don't understand. Try again.")
+        print("\n!! Sorry, I don't understand. Try again.\n")
         return None, None
     row = int(pick[0])
     if row < 0 or row >= game_board.boardwidth:
-        print("Row you entered is not on the game board. Please try again.")
+        print("\n!! Row you entered is not on the game board. Please try again.\n")
         return None, None
     column = int(pick[1])
     if column < 0 or column >= game_board.boardwidth:
-        print("Column you entered is not on the game board. Please try again.")
+        print("\n!! Column you entered is not on the game board. Please try again.\n")
         return None, None
     if game_board.board[row][column].face_up:
-        print("Seems that this card is already revealed. Please try again.")
+        print("\n!! Seems that this card is already revealed. Please try again.\n")
         return None, None
     return row, column
     
 
 def end_game():
-    print("Thanks for playing! Have a great day!")
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print("\n>>> Thanks for playing! Have a great day! <<<\n")
     exit()
 
 
