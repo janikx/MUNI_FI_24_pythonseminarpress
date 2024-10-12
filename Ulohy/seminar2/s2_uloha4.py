@@ -14,7 +14,6 @@ def CaesarCipher(text: str, n: int) -> str:
             ciphered_alphabeth.append(alphabeth[i+n])
         else:
             ciphered_alphabeth.append(alphabeth[i-(len(alphabeth)-n)])
-    print(ciphered_alphabeth)
 
     for i in range(0, len(ciphered_text)):
         for j in range(0, len(ciphered_alphabeth)):
